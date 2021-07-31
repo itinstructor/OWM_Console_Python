@@ -7,8 +7,9 @@
 """
 import datetime
 
-#--------------------------------------------------------- OPENWEATHERMAP API KEY #
-API_KEY = 'PUT YOUR API KEY HERE'
+
+#----------------------- OPENWEATHERMAP API KEY ---------------------------#
+API_KEY = 'YOUR API KEY'
 # One Call Parameters
 PARAMETERS_WEATHER = {
     "appid": API_KEY,
@@ -48,7 +49,7 @@ def convert_hourly_time(time):
     return time
 
 
-#-------------------------- GET TIME ----------------------------#
+#----------------------------- CONVERT TIME --------------------------------#
 def convert_time(time):
     """
         Convert GMT Unix time to local time
@@ -97,14 +98,12 @@ GEOCODE_ENDPOINT = "https://api.openweathermap.org/geo/1.0/direct?q="
 
 #----------------------- PROGRAM BANNER -------------------------------------#
 WEATHER_BANNER = """
- _    _            _   _                  ___              
-| |  | |          | | | |                / _ \             
-| |  | | ___  __ _| |_| |__   ___ _ __  / /_\ \_ __  _ __  
-| |/\| |/ _ \/ _` | __| '_ \ / _ \ '__| |  _  | '_ \| '_ \ 
-\  /\  /  __/ (_| | |_| | | |  __/ |    | | | | |_) | |_) |
- \/  \/ \___|\__,_|\__|_| |_|\___|_|    \_| |_/ .__/| .__/ 
-                                              | |   | |    
-                                              |_|   |_|     """
+ _    _            _   _                
+| |  | |          | | | |               
+| |  | | ___  __ _| |_| |__   ___ _ __  
+| |/\| |/ _ \/ _` | __| '_ \ / _ \ '__| 
+\  /\  /  __/ (_| | |_| | | |  __/ | 
+ \/  \/ \___|\__,_|\__|_| |_|\___|_| """
 
 #----------------------- ASCII DECORATED TITLE -----------------------------#
 
