@@ -9,12 +9,42 @@ import datetime
 
 
 #----------------------- OPENWEATHERMAP API KEY ---------------------------#
-API_KEY = 'YOUR API KEY'
+API_KEY = 'ENTER YOUR API KEY'
 # One Call Parameters
 PARAMETERS_WEATHER = {
     "appid": API_KEY,
     "units": "imperial"
 }
+
+
+#--------------------------------- URLS --------------------------------------#
+URL = "http://api.openweathermap.org/data/2.5/weather?appid=" + \
+    API_KEY + "&units=imperial&q="
+
+FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast?appid=" + \
+    API_KEY + "&units=imperial&q="
+
+ONE_CALL_URL = "https://api.openweathermap.org/data/2.5/onecall"
+
+GEOCODE_ENDPOINT = "https://api.openweathermap.org/geo/1.0/direct?q="
+
+AQI_ENDPOINT = "http://api.openweathermap.org/data/2.5/air_pollution?appid=" + API_KEY
+
+
+#--------------------------- UV INDEX STRING -----------------------------------#
+def uvi_to_string(uvi):
+    if uvi >= 11:
+        uvi_string = "Extreme"
+    elif uvi >= 8:
+        uvi_string = "Very High"
+    elif uvi >= 6:
+        uvi_string = "High"
+    elif uvi >= 3:
+        uvi_string = "Moderate"
+    elif uvi >= 0:
+        uvi_string = "Low"
+
+    return uvi_string
 
 
 #--------------------------- CONVERT TIME -----------------------------------#
@@ -73,7 +103,7 @@ def degrees_to_cardinal(degrees):
                            "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW")
 
     # Length of the list, how many cardinal directions
-    directions_tuple_length = len(cardinal_directions)
+    directions_tuple_length = len(cardinal_directions) - 1
 
     # Divide 360 degrees into 16 segments 0-15
     # Divide degrees by the number of cardinal directions
@@ -82,18 +112,6 @@ def degrees_to_cardinal(degrees):
 
     # Return the cardinal direction based on the tuple index
     return cardinal_directions[cardinal_index]
-
-
-#--------------------------------- URLS --------------------------------------#
-URL = "http://api.openweathermap.org/data/2.5/weather?appid=" + \
-    API_KEY + "&units=imperial&q="
-
-FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast?appid=" + \
-    API_KEY + "&units=imperial&q="
-
-ONE_CALL_URL = "https://api.openweathermap.org/data/2.5/onecall"
-
-GEOCODE_ENDPOINT = "https://api.openweathermap.org/geo/1.0/direct?q="
 
 
 #----------------------- PROGRAM BANNER -------------------------------------#
