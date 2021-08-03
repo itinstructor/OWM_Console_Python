@@ -1,6 +1,5 @@
-# OpenWeatherMapClassProject
+# OpenWeatherMap Class Project
 OpenWeatherMap Python Console Program Final Class Project
-
 ### Overview
 - Python console program using requests and OpenWeatherMap One Call API
 - Includes current and forecast weather, UV index, and Air Quality Index
