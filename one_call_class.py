@@ -36,10 +36,10 @@ class OneCall:
             else:
                 state = input("Enter state: ")
                 state += ","
-            
+
             city += ","
             country = input("Enter country: ")
-            
+
             # Build the weather query
             self.__location = f"{city}{state}{country}"
 
@@ -132,6 +132,10 @@ class OneCall:
         # Get pascals and convert to inches of mercury
         self.__pressure = round(weather_dict.get('pressure') / 33.86, 2)
         self.__clouds = weather_dict.get("clouds")
+
+        # Get visibility in meters, convert to miles
+        self.__visibility = round(
+            weather_dict.get("visibility") * 0.00062137, 1)
         # Get sunrise and sunset time
         self.__sunrise_time = weather_utils.convert_time(
             weather_dict.get("sunrise"))
@@ -139,14 +143,12 @@ class OneCall:
             weather_dict.get("sunset"))
         self.__uvi = weather_dict.get("uvi")
 
-        self.display_current_weather()
-
 #-------------------------- DISPLAY CURRENT WEATHER ---------------------------------#
     def display_current_weather(self):
         """
             Display current weather
         """
-        # Print weather information
+        # Print weather information to console
         print()
         print("="*70)
         print(f'Current weather at {self.__data_time} ☀')
@@ -159,17 +161,15 @@ class OneCall:
         print(f'{"Wind:":{self.WIDTH}} {self.__wind_speed} mph {weather_utils.degrees_to_cardinal(self.__wind_direction)}')
         print(f'{"Pressure:":{self.WIDTH}} {self.__pressure} in')
         print(f'{"Cloud Cover:":{self.WIDTH}} {self.__clouds}% ☁️')
+        print(f'{"Visibility:":{self.WIDTH}} {self.__visibility} miles')
         print(f'{"Sunrise:":{self.WIDTH}} {self.__sunrise_time}')
         print(f'{"Sunset:":{self.WIDTH}} {self.__sunset_time}')
         print(f'{"Latitude:":{self.WIDTH}} {self.__latitude}')
         print(f'{"Longitude:":{self.WIDTH}} {self.__longitude}')
         print(
             f'{"UV Index:":{self.WIDTH}} {self.__uvi} {weather_utils.uvi_to_string(self.__uvi)}')
-        self.get_air_quality()
-
 
 #----------------------------- 12-HOUR FORECAST -------------------------------------#
-
     def get_twelve_hour(self):
         """
             Get 12-hour forecast from One Call Weather data
@@ -249,7 +249,7 @@ class OneCall:
 #------------------------------- AIR QUALITY INDEX -------------------------------------#
     def get_air_quality(self):
         """ 
-            Get Air Quality Index from OpenWeatherMap
+            Get Air Quality Index from OpenWeatherMap with API call
         """
         params = {
             "lat": self.__latitude,
@@ -262,10 +262,11 @@ class OneCall:
 
         # If the status_code is 200, successful connection and data
         if(response.status_code == 200):
-            # Load json response into __weather dictionary
+            # Load json response into dictionary
             data = response.json()
-            # Get Air Quality Index
+            # Get Air Quality Index and pm25 particulates
             self.__aqi = data.get("list")[0].get("main").get("aqi")
+            self.__pm25 = data.get("list")[0].get("components").get("pm2_5")
 
             # Convert AQI to text
             if self.__aqi == 1:
@@ -280,4 +281,5 @@ class OneCall:
                 self.__aqi_string = "Very Poor"
 
             # Display Air Quality Index
-            print(f"{'Air Quality':{self.WIDTH}} {self.__aqi} {self.__aqi_string}")
+            print(f"{'Air Quality:':{self.WIDTH}} {self.__aqi} {self.__aqi_string}")
+            print(f"{'Particulates:':{self.WIDTH}} PM25 {self.__pm25}")
