@@ -168,6 +168,9 @@ class OneCall:
         print(f'{"Longitude:":{self.WIDTH}} {self.__longitude}')
         print(
             f'{"UV Index:":{self.WIDTH}} {self.__uvi} {weather_utils.uvi_to_string(self.__uvi)}')
+        # Display Air Quality Index
+        print(f"{'Air Quality:':{self.WIDTH}} {self.__aqi} {self.__aqi_string}")
+        print(f"{'Particulates:':{self.WIDTH}} PM25 {self.__pm25}")
 
 #----------------------------- 12-HOUR FORECAST -------------------------------------#
     def get_twelve_hour(self):
@@ -212,9 +215,10 @@ class OneCall:
         print("="*70)
 
         counter = 0
-        # Iterate through the temps
+        # Iterate through the hourly weather data
         for hourly_data in weather_slice:
             counter += 1
+            # Only display every other data slice
             if counter % 2:
                 temp = hourly_data["temp"]
                 description = hourly_data["weather"][0]["main"]
@@ -279,7 +283,3 @@ class OneCall:
                 self.__aqi_string = "Poor"
             elif self.__aqi == 5:
                 self.__aqi_string = "Very Poor"
-
-            # Display Air Quality Index
-            print(f"{'Air Quality:':{self.WIDTH}} {self.__aqi} {self.__aqi_string}")
-            print(f"{'Particulates:':{self.WIDTH}} PM25 {self.__pm25}")

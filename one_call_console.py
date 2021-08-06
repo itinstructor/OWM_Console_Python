@@ -11,6 +11,7 @@ import weather_utils
 import one_call_class
 
 
+#-------------------------------- MENU -------------------------------------#
 def menu():
     """
         Print menu for user, return menu choice
@@ -30,28 +31,28 @@ def main():
     # Create program object
     one_call = one_call_class.OneCall()
 
-    # Get initial location and one call weather data
-    # This is the only method that makes an API call
-    # The other methods display the location data in different formats
+    # Get initial location for one call weather data and AQI
+    # These are the only methods that make an API call
+    # The other methods display the data in different formats
     one_call.get_location()
+    one_call.get_air_quality()
 
     # Menu loop
     while True:
         # Display menu choices
         menu_choice = menu()
-        
+
         # If the user presses the enter key, exit program
         if menu_choice == "":
             # Exit loop
             break
-        
+
         # Get and display the current weather and air quality
         elif menu_choice == "1":
             one_call.get_current_weather()
             one_call.display_current_weather()
             # Make separate API call for Air Quality
-            one_call.get_air_quality()
-        
+
         # Get and display 12 hour forecast
         elif menu_choice == "2":
             one_call.get_twelve_hour()
@@ -67,6 +68,7 @@ def main():
 
     # Say goodbye to the user as the program exits
     weather_utils.goodbye()
+
 
 # Call main method to start the program
 main()
