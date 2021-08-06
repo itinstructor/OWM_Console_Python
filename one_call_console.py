@@ -4,7 +4,6 @@
     Created:
     Purpose: Main program
     Get one call weather data from OpenWeatherMap.org API with requests and json
-    Get lat and lon from geocode
 """
 
 import weather_utils
@@ -51,8 +50,6 @@ def main():
         elif menu_choice == "1":
             one_call.get_current_weather()
             one_call.display_current_weather()
-            # Make separate API call for Air Quality
-
         # Get and display 12 hour forecast
         elif menu_choice == "2":
             one_call.get_twelve_hour()

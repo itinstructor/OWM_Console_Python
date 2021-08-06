@@ -16,7 +16,7 @@ from geopy.geocoders import Nominatim
 def main():
     # For testing
     geocode()
-    reverse_geocode(LAT, LON)
+    # reverse_geocode(LAT, LON)
 
 
 def geocode():
@@ -38,9 +38,9 @@ def geocode():
 
     geo_location = geolocator.geocode(location)
     # For testing purposes
-    # print(location.raw)
-    # print(location.address)
-    # print((location.latitude, location.longitude))
+    # print(geo_location.raw)
+    # print(geo_location.address)
+    #print((geo_location.latitude, geo_location.longitude))
 
     # Return geocode location information to calling program
     return (geo_location.latitude, geo_location.longitude, geo_location.address)

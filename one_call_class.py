@@ -1,10 +1,11 @@
 """
     Name: one_call_class.py
-    Author:
-    Created:
+    Author: William A Loring
+    Created: 07/04/21
     Purpose: OOP console app
     Get lat and lon from Openweather map current weather
     Use lat and lon for One Call Weather
+    Use geopy to reverse lookup to confirm location
 """
 
 import datetime
@@ -17,8 +18,10 @@ import geocode_geopy
 class OneCall:
     def __init__(self):
         """ Initialize object """
-        # Field width constant for printing in columns
+        # Field width constants for printing in columns
         self.WIDTH = 15
+        self.AQI_WIDTH = 20
+        # Create empty dictionary for weather data
         self.__weather_data = {}
         print(weather_utils.WEATHER_BANNER)
         print(weather_utils.title("Welcome to Bill's Weather App!"))
@@ -62,14 +65,16 @@ class OneCall:
                 self.__latitude = weather_data.get("coord").get("lat")
                 self.__longitude = weather_data.get("coord").get("lon")
 
-                # Reverse gecode the address with geopy Nominatim
+                # Reverse gecode the address with geopy Nominatim to confirm address
                 self.__address = geocode_geopy.reverse_geocode(
                     self.__latitude,
                     self.__longitude
                 )
-                # Get the weather information for the location
+
+                # Get weather information for the location
                 self.get_one_call_weather()
             else:
+                # Recursive call if the user types in invalid information
                 print(f"The response status code was: {response.status_code}")
                 print("You may have typed an invalid location.")
                 print("Please try again.")
@@ -102,6 +107,7 @@ class OneCall:
             # Raise exception if anything other than status code 200
             self.response.raise_for_status
 
+        # Recursive call for error to try an new location
         except Exception as e:
             print(e)
             print("Oops, try again.")
@@ -110,6 +116,8 @@ class OneCall:
         # Get weather data as python dictionary
         self.__weather_data = self.response.json()
         print("="*70)
+        
+        # Print reverse geocode address to confirm location
         print(f"{self.__address}")
 
 #----------------------------- GET CURRENT WEATHER ----------------------------------#
@@ -170,7 +178,11 @@ class OneCall:
             f'{"UV Index:":{self.WIDTH}} {self.__uvi} {weather_utils.uvi_to_string(self.__uvi)}')
         # Display Air Quality Index
         print(f"{'Air Quality:':{self.WIDTH}} {self.__aqi} {self.__aqi_string}")
-        print(f"{'Particulates:':{self.WIDTH}} PM25 {self.__pm25}")
+        print(f"{'Ground Level Ozone:':{self.AQI_WIDTH}} (O₃) {self.__o3}")
+        print(f"{'Carbon Monoxide:':{self.AQI_WIDTH}} (CO) {self.__co}")
+        print(f"{'Sulphur Dioxide:':{self.AQI_WIDTH}} (SO₂) {self.__so2}")
+        print(f"{'Nitrogen Dioxide:':{self.AQI_WIDTH}} (NO₂) {self.__no2}")
+        print(f"{'Fine Particulates:':{self.AQI_WIDTH}} (PM25) {self.__pm25}")
 
 #----------------------------- 12-HOUR FORECAST -------------------------------------#
     def get_twelve_hour(self):
@@ -268,8 +280,17 @@ class OneCall:
         if(response.status_code == 200):
             # Load json response into dictionary
             data = response.json()
-            # Get Air Quality Index and pm25 particulates
+            # Air Quality Index (SQI)
             self.__aqi = data.get("list")[0].get("main").get("aqi")
+            # Ground level ozone
+            self.__o3 = data.get("list")[0].get("components").get("o3")
+            # Carbon Monoxide
+            self.__co = data.get("list")[0].get("components").get("co")
+            # Sulphur Dioxide
+            self.__so2 = data.get("list")[0].get("components").get("so2")
+            # Nitrogen Dioxide
+            self.__no2 = data.get("list")[0].get("components").get("no2")
+            # Fine particulates
             self.__pm25 = data.get("list")[0].get("components").get("pm2_5")
 
             # Convert AQI to text
