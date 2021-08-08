@@ -19,8 +19,8 @@ class OneCall:
     def __init__(self):
         """ Initialize object """
         # Field width constants for printing in columns
-        self.__WIDTH = 15
-        self.__AQI_WIDTH = 20
+        self.__WIDTH = 13
+        self.__AQI_WIDTH = 26
         # Create empty dictionary for weather data
         self.__weather_data = {}
         print(weather_utils.WEATHER_BANNER)
@@ -115,7 +115,7 @@ class OneCall:
         # Get weather data as python dictionary
         self.__weather_data = self.response.json()
         print("="*70)
-        
+
         # Print reverse geocode address to confirm location
         print(f"{self.__address}")
 
@@ -175,16 +175,19 @@ class OneCall:
         print(f'{"Longitude:":{self.__WIDTH}} {self.__longitude}')
         print(
             f'{"UV Index:":{self.__WIDTH}} {self.__uvi} {weather_utils.uvi_to_string(self.__uvi)}')
+        print("-"*70)
         # Display Air Quality Index and major pollutants
-        print(f"{'Air Quality:':{self.__WIDTH}} {self.__aqi} {self.__aqi_string}")
-        print(f"{'Ground Level Ozone:':{self.__AQI_WIDTH}} (O₃) {self.__o3}")
-        print(f"{'Fine Particulates:':{self.__AQI_WIDTH}} (PM25) {self.__pm25}")
-        print(f"{'Carbon Monoxide:':{self.__AQI_WIDTH}} (CO) {self.__co}")
-        print(f"{'Sulphur Dioxide:':{self.__AQI_WIDTH}} (SO₂) {self.__so2}")
-        print(f"{'Nitrogen Dioxide:':{self.__AQI_WIDTH}} (NO₂) {self.__no2}")
-        
+        print(
+            f"{'Air Quality Index:':{self.__AQI_WIDTH}} {self.__aqi} {self.__aqi_string}")
+        print(f"{'Ground Level Ozone (O₃):':{self.__AQI_WIDTH}} {self.__o3}")
+        print(f"{'Fine Particulates (PM25):':{self.__AQI_WIDTH}} {self.__pm25}")
+        print(f"{'Carbon Monoxide (CO):':{self.__AQI_WIDTH}} {self.__co}")
+        print(f"{'Sulphur Dioxide (SO₂):':{self.__AQI_WIDTH}} {self.__so2}")
+        print(f"{'Nitrogen Dioxide (NO₂):':{self.__AQI_WIDTH}} {self.__no2}")
+
 
 #----------------------------- 12-HOUR FORECAST -------------------------------------#
+
     def get_twelve_hour(self):
         """
             Get 12-hour forecast from One Call Weather data
