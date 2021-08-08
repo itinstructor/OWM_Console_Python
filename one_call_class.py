@@ -19,8 +19,8 @@ class OneCall:
     def __init__(self):
         """ Initialize object """
         # Field width constants for printing in columns
-        self.WIDTH = 15
-        self.AQI_WIDTH = 20
+        self.__WIDTH = 15
+        self.__AQI_WIDTH = 20
         # Create empty dictionary for weather data
         self.__weather_data = {}
         print(weather_utils.WEATHER_BANNER)
@@ -86,7 +86,6 @@ class OneCall:
     def get_one_call_weather(self):
         """ Get one call weather data """
         try:
-
             # Parameters for building the URL
             weather_params = {
                 "lat": self.__latitude,
@@ -107,7 +106,7 @@ class OneCall:
             # Raise exception if anything other than status code 200
             self.response.raise_for_status
 
-        # Recursive call for error to try an new location
+        # Recursive call for error to try a new location
         except Exception as e:
             print(e)
             print("Oops, try again.")
@@ -163,26 +162,27 @@ class OneCall:
         print(f"{self.__address}")
         print("="*70)
         print(self.__description)
-        print(f'{"Temperature:":{self.WIDTH}} {self.__temperature}°F 🌡')
-        print(f'{"Feels Like:":{self.WIDTH}} {self.__feels_like}°F')
-        print(f'{"Humidity:":{self.WIDTH}} {self.__humidity}%')
-        print(f'{"Wind:":{self.WIDTH}} {self.__wind_speed} mph {weather_utils.degrees_to_cardinal(self.__wind_direction)}')
-        print(f'{"Pressure:":{self.WIDTH}} {self.__pressure} in')
-        print(f'{"Cloud Cover:":{self.WIDTH}} {self.__clouds}% ☁️')
-        print(f'{"Visibility:":{self.WIDTH}} {self.__visibility} miles')
-        print(f'{"Sunrise:":{self.WIDTH}} {self.__sunrise_time}')
-        print(f'{"Sunset:":{self.WIDTH}} {self.__sunset_time}')
-        print(f'{"Latitude:":{self.WIDTH}} {self.__latitude}')
-        print(f'{"Longitude:":{self.WIDTH}} {self.__longitude}')
+        print(f'{"Temperature:":{self.__WIDTH}} {self.__temperature}°F 🌡')
+        print(f'{"Feels Like:":{self.__WIDTH}} {self.__feels_like}°F')
+        print(f'{"Humidity:":{self.__WIDTH}} {self.__humidity}%')
+        print(f'{"Wind:":{self.__WIDTH}} {self.__wind_speed} mph {weather_utils.degrees_to_cardinal(self.__wind_direction)}')
+        print(f'{"Pressure:":{self.__WIDTH}} {self.__pressure} in')
+        print(f'{"Cloud Cover:":{self.__WIDTH}} {self.__clouds}% ☁️')
+        print(f'{"Visibility:":{self.__WIDTH}} {self.__visibility} miles')
+        print(f'{"Sunrise:":{self.__WIDTH}} {self.__sunrise_time}')
+        print(f'{"Sunset:":{self.__WIDTH}} {self.__sunset_time}')
+        print(f'{"Latitude:":{self.__WIDTH}} {self.__latitude}')
+        print(f'{"Longitude:":{self.__WIDTH}} {self.__longitude}')
         print(
-            f'{"UV Index:":{self.WIDTH}} {self.__uvi} {weather_utils.uvi_to_string(self.__uvi)}')
-        # Display Air Quality Index
-        print(f"{'Air Quality:':{self.WIDTH}} {self.__aqi} {self.__aqi_string}")
-        print(f"{'Ground Level Ozone:':{self.AQI_WIDTH}} (O₃) {self.__o3}")
-        print(f"{'Carbon Monoxide:':{self.AQI_WIDTH}} (CO) {self.__co}")
-        print(f"{'Sulphur Dioxide:':{self.AQI_WIDTH}} (SO₂) {self.__so2}")
-        print(f"{'Nitrogen Dioxide:':{self.AQI_WIDTH}} (NO₂) {self.__no2}")
-        print(f"{'Fine Particulates:':{self.AQI_WIDTH}} (PM25) {self.__pm25}")
+            f'{"UV Index:":{self.__WIDTH}} {self.__uvi} {weather_utils.uvi_to_string(self.__uvi)}')
+        # Display Air Quality Index and major pollutants
+        print(f"{'Air Quality:':{self.__WIDTH}} {self.__aqi} {self.__aqi_string}")
+        print(f"{'Ground Level Ozone:':{self.__AQI_WIDTH}} (O₃) {self.__o3}")
+        print(f"{'Fine Particulates:':{self.__AQI_WIDTH}} (PM25) {self.__pm25}")
+        print(f"{'Carbon Monoxide:':{self.__AQI_WIDTH}} (CO) {self.__co}")
+        print(f"{'Sulphur Dioxide:':{self.__AQI_WIDTH}} (SO₂) {self.__so2}")
+        print(f"{'Nitrogen Dioxide:':{self.__AQI_WIDTH}} (NO₂) {self.__no2}")
+        
 
 #----------------------------- 12-HOUR FORECAST -------------------------------------#
     def get_twelve_hour(self):
@@ -230,7 +230,7 @@ class OneCall:
         # Iterate through the hourly weather data
         for hourly_data in weather_slice:
             counter += 1
-            # Only display every other data slice
+            # Only display every even data slice
             if counter % 2:
                 temp = hourly_data["temp"]
                 description = hourly_data["weather"][0]["main"]
