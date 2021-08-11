@@ -166,7 +166,7 @@ class OneCall:
         print(f'{"Feels Like:":{self.__WIDTH}} {self.__feels_like}°F')
         print(f'{"Humidity:":{self.__WIDTH}} {self.__humidity}%')
         print(f'{"Wind:":{self.__WIDTH}} {self.__wind_speed} mph {weather_utils.degrees_to_cardinal(self.__wind_direction)}')
-        print(f'{"Pressure:":{self.__WIDTH}} {self.__pressure} in')
+        print(f'{"Pressure:":{self.__WIDTH}} {self.__pressure} inHg')
         print(f'{"Cloud Cover:":{self.__WIDTH}} {self.__clouds}% ☁️')
         print(f'{"Visibility:":{self.__WIDTH}} {self.__visibility} miles')
         print(f'{"Sunrise:":{self.__WIDTH}} {self.__sunrise_time}')
