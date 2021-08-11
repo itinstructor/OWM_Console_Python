@@ -6,6 +6,7 @@
     for easy import into OpenWeatherMap based apps
 """
 import datetime
+import math
 
 
 #----------------------- OPENWEATHERMAP API KEY ---------------------------#
@@ -98,17 +99,18 @@ def convert_time(time):
 def degrees_to_cardinal(degrees):
     """ Convert degrees to cardinal directions """
 
-    # Create tuple of cardinal directions clockwise for 360 degrees
+    # Tuple of cardinal directions clockwise for 360 degrees
     cardinal_directions = ("N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
                            "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW")
 
-    # Length of the list, how many cardinal directions
-    directions_tuple_length = len(cardinal_directions) - 1
-
     # Divide 360 degrees into 16 segments 0-15
-    # Divide degrees by the number of cardinal directions
-    # This will give the index of the tuple
-    cardinal_index = round(degrees / (360.0 / directions_tuple_length))
+    # 22.5 degrees per segment
+    # Shift incoming degrees by 11.25 to match Cardinal to Degree
+    # Round down to the nearest integer
+    cardinal_index = math.floor((degrees+11.25) / 22.5)
+
+    # Take care of 348 to 360 returning 16, set to 0
+    cardinal_index = cardinal_index % 16
 
     # Return the cardinal direction based on the tuple index
     return cardinal_directions[cardinal_index]
