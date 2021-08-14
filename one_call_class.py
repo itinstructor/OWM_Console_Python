@@ -24,7 +24,7 @@ class OneCall:
         # Create empty dictionary for weather data
         self.__weather_data = {}
         print(weather_utils.WEATHER_BANNER)
-        print(weather_utils.title("Welcome to Bill's Weather App!"))
+        print(weather_utils.title("Welcome to OpenWeatherMap Weather App!"))
 
 #--------------------------------- GET LOCATION -------------------------------------#
     def get_location(self):
