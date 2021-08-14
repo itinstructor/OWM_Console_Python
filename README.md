@@ -8,7 +8,8 @@ OpenWeatherMap Python Console Program Final Class Project
     * The reverse geocoding from geopy confirms that we have the weather for the right city.
 - JSON sample response files used to build the program are in the json_response_files folder.
 ### API Key
-- To run the program, go to weather_utils.py. Put in your OpenWeatherMap API key.
+- To run the program, go to openweathermap.org. Get a free API key.
+- Go to weather_utils.py. Put in your OpenWeatherMap API key.
 ### Changes
 - 07/27/2021: Initial commit
 ### License

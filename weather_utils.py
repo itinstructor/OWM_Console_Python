@@ -10,7 +10,8 @@ import math
 
 
 #----------------------- OPENWEATHERMAP API KEY ---------------------------#
-API_KEY = 'ENTER YOUR API KEY'
+API_KEY = 'Put your OpenWeatherMap Key Here'
+
 # One Call Parameters
 PARAMETERS_WEATHER = {
     "appid": API_KEY,
@@ -22,12 +23,7 @@ PARAMETERS_WEATHER = {
 URL = "http://api.openweathermap.org/data/2.5/weather?appid=" + \
     API_KEY + "&units=imperial&q="
 
-FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast?appid=" + \
-    API_KEY + "&units=imperial&q="
-
 ONE_CALL_URL = "https://api.openweathermap.org/data/2.5/onecall"
-
-GEOCODE_ENDPOINT = "https://api.openweathermap.org/geo/1.0/direct?q="
 
 AQI_ENDPOINT = "http://api.openweathermap.org/data/2.5/air_pollution?appid=" + API_KEY
 
@@ -152,4 +148,4 @@ def goodbye():
     """
         Print goodbye to user
     """
-    print(title("Good bye from Bill's Weather App!"))
+    print(title("Good bye from OWM Weather App!"))

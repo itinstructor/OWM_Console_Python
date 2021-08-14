@@ -8,10 +8,6 @@
 
 from geopy.geocoders import Nominatim
 
-# For testing
-# LAT = 41.8666
-# LON = -103.6672
-
 
 def main():
     # For testing

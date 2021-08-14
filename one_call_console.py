@@ -1,7 +1,7 @@
 """
     Name: one_call_console.py
-    Author:
-    Created:
+    Author: William A Loring
+    Created: 06/20/2021
     Purpose: Main program
     Get one call weather data from OpenWeatherMap.org API with requests and json
 """
@@ -16,7 +16,7 @@ def menu():
         Print menu for user, return menu choice
     """
     print("-"*70)
-    print(f"[1] Get current weather")
+    print(f"[1] Get current weather and AQI")
     print(f"[2] Get 12 hour forecast")
     print(f"[3] Get 48 hour forecast")
     print(f"[4] Get 7 day forecast")
