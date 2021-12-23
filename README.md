@@ -1,5 +1,5 @@
-# OpenWeatherMap Class Project
-OpenWeatherMap Python Console Program Final Class Project
+# OpenWeatherMap Console App
+OpenWeatherMap Python Console Program App
 ### Overview
 - Python console program using requests, OpenWeatherMap One Call API, OpenWeatherMap Air Pollution API, and Nominatim from geopy.
 - Includes current and forecast weather, UV index, and Air Quality Index.
